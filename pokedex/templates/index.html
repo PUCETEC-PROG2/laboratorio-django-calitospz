@@ -47,12 +47,20 @@
               </nav>
             <p class="p-2">Hola, este es tu primer sitio en Django</p>
             <ul class="list-group">
-                {% for pokemon in pokemons %}
+                {% for trainer in trainers %}
                 <li class="list-group-item">
-                    <a href="{{pokemon.id}}">{{ pokemon | capfirst }}</a>
+                    <a href="trainer/{{trainer.id}}">{{ trainer | capfirst }}</a>
                 </li>
                 {% endfor %}
             </ul>
+
+            <ul class="list-group">
+              {% for pokemon in pokemons %}
+              <li class="list-group-item">
+                  <a href="{{pokemon.id}}">{{ pokemon | capfirst }}</a>
+              </li>
+              {% endfor %}
+          </ul>
         </div>
     </body>
 </html>
