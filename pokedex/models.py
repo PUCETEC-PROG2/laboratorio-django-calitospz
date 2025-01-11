@@ -1,8 +1,8 @@
 from django.db import models
 
-class Trainer(models.model):
-    first_name = models.Charfield(max_length=30 null=False)
-    last_name = models.Charfield(max_length=30 null=False)
+class Trainer(models.Model):
+    first_name = models.CharField(max_length=30,null=False)
+    last_name = models.CharField(max_length=30,null=False)
     birth_date = models.DateField()
     level = models.IntegerField(default=1)
 # Create your models here.
