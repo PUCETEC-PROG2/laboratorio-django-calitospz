@@ -9,11 +9,11 @@
             <div class="bg-primary text-white p-4 text-center">
                 <h1>Mi Pokedex</h1>
             </div>
-            <h3>Detalles del Entrenador</h3>
+            <h3>{{ trainer | capfirst}}</h3>
+            <p>Detalles</p>
             <ul>
-                <li>Nombre: {{ trainer.first_name}}</li>
-                <li>Tipo: {{ trainer.last_name}}</li>
-                <li>Nivel: {{ trainer.level}}</li>
+                <li>Nivel: {{ trainer.level }}</li>
+                <li>Fecha de nacimiento : {{ trainer.birth_date }}</li>
             </ul>
         </div>
     </body>

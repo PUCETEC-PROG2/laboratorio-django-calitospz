@@ -20,4 +20,9 @@ class Migration(migrations.Migration):
                 ('level', models.IntegerField(default=1)),
             ],
         ),
+        migrations.AlterField(
+            model_name='pokemon' ,
+            name='type' ,
+            
+        )
     ]
