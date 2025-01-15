@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.template import loader
-from django.shortcuts import redirect,render
+from django.shortcuts import redirect, render
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 
@@ -17,6 +17,13 @@ def index(request):
         },
         request))
 
+def trainers(request):
+    trainers = Trainer.objects.all()
+    template = loader.get_template('trainers.html')
+    return HttpResponse(template.render({
+        'trainers': trainers,
+    }, request))
+
 def pokemon(request, pokemon_id):
     pokemon = Pokemon.objects.get(pk=pokemon_id)
     template = loader.get_template('display_pokemon.html')
@@ -26,7 +33,7 @@ def pokemon(request, pokemon_id):
     return HttpResponse(template.render(context, request))
 
 def trainer_detail(request, trainer_id):
-    trainer = Trainer.objects.get(pk = trainer_id)
+    trainer = Trainer.objects.get(pk=trainer_id)
     template = loader.get_template('display_trainer.html')
     context = {
         'trainer': trainer
@@ -43,11 +50,11 @@ def add_pokemon(request):
     else:
         form = PokemonForm()
 
-    return render(request, 'pokemon_form.html', {'form':form})
+    return render(request, 'pokemon_form.html', {'form': form})
 
 @login_required
 def edit_pokemon(request, pokemon_id):
-    pokemon = Pokemon.objects.get(pk = pokemon_id)
+    pokemon = Pokemon.objects.get(pk=pokemon_id)
     if request.method == "POST":
         form = PokemonForm(request.POST, request.FILES, instance=pokemon)
         if form.is_valid():
@@ -56,11 +63,11 @@ def edit_pokemon(request, pokemon_id):
     else:
         form = PokemonForm(instance=pokemon)
 
-    return render(request, 'pokemon_form.html', {'form':form})
+    return render(request, 'pokemon_form.html', {'form': form})
 
 @login_required
-def delet_pokemon(request, pokemon_id):
-    pokemon = Pokemon.objects.get(pk = pokemon_id)
+def delete_pokemon(request, pokemon_id):
+    pokemon = Pokemon.objects.get(pk=pokemon_id)
     pokemon.delete()
     return redirect('pokedex:index')
 
