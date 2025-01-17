@@ -1,10 +1,28 @@
 {% extends "base.html" %}
-{% block title %}{{ trainer | capfirst}}{% endblock title %}
+{% block title %}Entrenadores{% endblock title %}
 {% block content %}
-    <h3>{{ trainer | capfirst}}</h3>
-    <p>Detalles</p>
-    <ul>
-        <li>Nivel: {{ trainer.level }}</li>
-        <li>Fecha de nacimiento : {{ trainer.birth_date }}</li>
-    </ul>
+<div class="card-group">
+    {% for trainer in trainers %}
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ trainer.picture.url }}" alt="" width="100%" height="100%">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-tittle">{{ trainer }}</h5>
+                        <p class="card-text">Fecha de Nacimiento: {{ trainer.birth_date }}</p>
+                        <p class="card-text">Nivel: {{ trainer.level }}</p>
+                        <a href="{% url 'pokedex:edit_trainer' trainer.pk %}" class="btn btn-primary">
+                            <i class="fa-solid fa-pencil"></i>
+                        </a>
+                        <a href="{% url 'pokedex:delete_trainer' trainer.pk %}" class="btn btn-danger">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
 {% endblock content %}
