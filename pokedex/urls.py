@@ -1,13 +1,19 @@
 from django.urls import path
+
 from . import views
 
 app_name = 'pokedex'
+
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("<int:pokemon_id>/", views.pokemon, name="pokemon"),
-    path("trainer/<int:trainer_id>/", views.trainer_detail, name="trainer"),
-    path("add_pokemon/", views.add_pokemon, name="add_pokemon"),
-    path("edit_pokemon/<int:pokemon_id>/", views.edit_pokemon, name="edit_pokemon"),
-    path("delete_pokemon/<int:pokemon_id>/", views.delete_pokemon, name="delet_pokemon"),
-    path("login/", views.CustomLoginView.as_view(),name="login")
-    ]
+    path('', views.index, name='index'),
+    path('pokemon/<int:pokemon_id>/', views.pokemon, name='pokemon'),
+    path('pokemon/add/', views.add_pokemon, name='add_pokemon'),
+    path('pokemon/edit/<int:pk>/', views.edit_pokemon, name='edit_pokemon'),
+    path('pokemon/delete/<int:pk>/', views.delete_pokemon, name='delete_pokemon'),
+    path('login/', views.CustomLoginView.as_view(), name="login"),
+    path('trainers/', views.trainer, name='trainers'),
+    path('trainers/add/', views.add_trainer, name='add_trainer'),
+    path('trainers/edit/<int:pk>/', views.edit_trainer, name='edit_trainer'),
+    path('trainers/delete/<int:pk>/', views.delete_trainer, name='delete_trainer'),
+    path('logout/', views.logout_view, name='logout'),
+]

@@ -1,12 +1,24 @@
 {% extends "base.html" %}
-{% block title %}{{pokemon | capfirst }}{% endblock title %}
+{% block title %}Detalles de Pokémon{% endblock title %}
 {% block content %}
-<p>Has elegido el pokemon: <strong>{{ pokemon | capfirst }}</strong></p>
-<p>Detalles</p>
+<h2>{{ pokemon.name }}</h2>
+<p>Has elegido el Pokémon: <strong>{{ pokemon.name | capfirst }}</strong></p>
+<h3>Características</h3>
 <ul>
-    <li>Peso: {{ pokemon.weight}}Kg.</li>
-    <li>Altura: {{ pokemon.height}}cm.</li>
-    <li>Entrenador: {{ pokemon.trainer}}</li>
-    <li>tipo: {{ pokemon.get_type_display}}</li>
+    <li>Tipo: {{ pokemon.type }}</li>
+    <li>Peso: {{ pokemon.weight }} kg</li>
+    <li>Altura: {{ pokemon.height }} cm</li>
+    <li>Entrenador: {{ pokemon.trainer }}</li>
 </ul>
+
+<div>
+    <a href="{% url 'pokedex:edit_pokemon' pk=pokemon.id %}" class="btn btn-primary">
+        <i class="fa-solid fa-pencil"></i> Editar Pokémon
+    </a>
+    <a href="{% url 'pokedex:delete_pokemon' pk=pokemon.id %}" class="btn btn-danger">
+        <i class="fa-solid fa-trash"></i> Eliminar Pokémon
+    </a>
+</div>
+<br>
+<a href="/" class="btn btn-secondary">Regresar</a>
 {% endblock content %}

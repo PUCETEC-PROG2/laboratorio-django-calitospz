@@ -1,36 +1,38 @@
 {% extends "base.html" %}
-{% block title %}Página inicial{% endblock title %}
-{% block content %}
- <p class="p-2">Pokemons</p>
- {% if user.is_authenticated %}
- <a href="{% url 'pokedex:add_pokemon' %}">Añadir Pokemon</a>
- {% endif %}
-  <div class = "row">
-      {% for pokemon in pokemons %}
-     <div class="col-sm-4">
-        <br>
-        <div class="card" style="width: 100%;">
-          <img class="card-img-top" src="{{pokemon.picture.url}}" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">{{ pokemon | capfirst }}</h5>
-            <p class="card-text">Altura {{pokemon.height}}</p>
-            <a href="pokemon/{{pokemon.pk}}" class="btn btn-primary">
-              <i class="fa-solid fa-eye"></i>
-            </a>
-            {% if user.is_authenticated %}
-              <a href="edit_pokemon/{{pokemon.pk}}" class="btn btn-primary">
-                <i class="fa-solid fa-pencil"></i>
-              </a>
-              <a href="delet_pokemon/{{pokemon.pk}}" class="btn btn-danger">
-                <i class="fa-solid fa-trash"></i>
-              </a>
-            {% endif %}
-          </div>
-        </div>
-
-      </div>
-      {% endfor %}
-    </div>
-
+{% block title %}Pokedex{% endblock title %}
  
+{% block content %}
+    <div class="text-center my-4">
+        <h1 class="display-4">Bienvenido a la Pokedex</h1>
+        <p>Selecciona un Pokemon para ver más detalles:</p>
+    </div>
+ 
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for pokemon in pokemons %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ pokemon.picture.url }}" class="card-img-top" alt="Imagen de {{ pokemon }}">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ pokemon | capfirst }}</h5>
+                        <p class="card-text"><strong>Entrenador:</strong> {{ pokemon.trainer }}</p>
+                        <p class="card-text"><strong>Peso:</strong> {{ pokemon.weight }} kg</p>
+                        <p class="card-text"><strong>Altura:</strong> {{ pokemon.height }} m</p>
+                        <p class="card-text"><strong>Tipo:</strong> {{ pokemon.type }}</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-around">
+                        <a href="pokemon/{{ pokemon.id }}" class="btn btn-primary">
+                            <i class="fa-solid fa-eye"></i> Ver
+                        </a>
+                        <a href="{% url 'pokedex:edit_pokemon' pk=pokemon.id %}" class="btn btn-primary">
+                            <i class="fa-solid fa-pencil"></i> Editar
+                        </a>
+                        <a href="{% url 'pokedex:delete_pokemon' pk=pokemon.id %}" class="btn btn-danger">
+                          <i class="fa-solid fa-trash"></i> Borrar
+                        </a>    
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock content %}
+ 
